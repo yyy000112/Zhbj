@@ -22,6 +22,7 @@ public class GovPager extends BasePager {
         textView.setTextColor(Color.RED);
         textView.setGravity(Gravity.CENTER);
         flContent.addView(textView);
+        tvTitle.setText("人口管理");
     }
 
 

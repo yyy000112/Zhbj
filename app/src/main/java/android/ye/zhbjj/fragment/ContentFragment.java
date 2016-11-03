@@ -40,6 +40,7 @@ public class ContentFragment extends BaseFragment {
         mPagers.add(new SmartPager(mActivity));
         mPagers.add(new GovPager(mActivity));
         mPagers.add(new SettingPager(mActivity));
+        //给ViewPager设置数据适配器
         mViewPager.setAdapter(new ContentAdapter());
 
         /**
@@ -151,4 +152,9 @@ public class ContentFragment extends BaseFragment {
              container.removeView((View) object);
          }
      }
+
+    public NewsCenterPager getNewsCenterPager(){
+        NewsCenterPager pager = (NewsCenterPager) mPagers.get(1);
+        return pager;
+    }
 }

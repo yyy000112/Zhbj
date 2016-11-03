@@ -1,7 +1,6 @@
 package android.ye.zhbjj.base;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -15,7 +14,7 @@ public class BasePager {
 
     public Activity mActivity;
     public TextView tvTitle;
-    public ImageButton ibtmMenu;
+    public ImageButton ibtnMenu;
     public FrameLayout flContent;
     public final View mRootView;
 
@@ -29,7 +28,7 @@ public class BasePager {
     public View initView(){
         View view =View.inflate(mActivity, R.layout.base_pager, null);
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        ibtmMenu = (ImageButton) view.findViewById(R.id.btn_menu);
+        ibtnMenu = (ImageButton) view.findViewById(R.id.btn_menu);
         flContent = (FrameLayout) view.findViewById(R.id.fl_content);
         return view;
     }

@@ -1,5 +1,6 @@
 package android.ye.zhbjj.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.ye.zhbjj.R;
+import android.ye.zhbjj.permit.PermissionCallBack;
+import android.ye.zhbjj.permit.PermissionManager;
 import android.ye.zhbjj.utils.ConstantValue;
 import android.ye.zhbjj.utils.SpUtils;
+import android.ye.zhbjj.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,8 @@ public class GuideActivity extends Activity{
         setContentView(R.layout.activity_guide);
         initUI();
         initData();
+        //添加动态权限
+        RequirePermit();
         //改ViewPager设置数据
         mViewPager.setAdapter(new MyPagerAdatper());
         //设置ViewPager监听事件
@@ -81,6 +87,8 @@ public class GuideActivity extends Activity{
         });
 
     }
+
+
 
     private void initData() {
         mImages = new int[]{R.mipmap.guide_1,R.mipmap.guide_2,R.mipmap.guide_3};
@@ -148,4 +156,41 @@ public class GuideActivity extends Activity{
             container.removeView((View) object);
         }
     }
+
+    public void RequirePermit() {
+
+//第一个参数是activity，第二个可以是单个permission(如下)，也可以是多个(放到new String[])
+        if(PermissionManager.getInstance().hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            //已经获取权限
+        }
+        else{
+            if(PermissionManager.getInstance().shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                //已经询问过权限但是被拒绝，在这里一般显示一些为什么要需要权限，提示用户去设置里激活权限
+                ToastUtils.show(getApplication(),"需激活权限，否则某些功能无法正常使用");
+
+            }
+            else{
+                PermissionManager.getInstance().requestPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        new PermissionCallBack() {
+                            @Override
+                            public void onGranted(String[] permissions, int[] grantResults) {
+                                //获得权限成功
+                            }
+
+                            @Override
+                            public void onFailed(String[] permissions, int[] grantResults) {
+                                //获得权限失败
+                                //permission数组与grantResults数组位置想对应，可以看到具体每个权限是否被获取
+                            }
+                        });
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        PermissionManager.getInstance().onRequestPermissionResult(requestCode, permissions, grantResults);
+    }
+
 }

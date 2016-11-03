@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
+ * 自定义主页面viewPager
  * Created by ye on 2016/11/2.
  */
 public class NoScrollViewPager extends ViewPager {
@@ -15,6 +16,12 @@ public class NoScrollViewPager extends ViewPager {
 
     public NoScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //禁止拦截子类页面
+        return false;
     }
 
     //禁用滑动功能
