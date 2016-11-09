@@ -186,6 +186,61 @@ public class GuideActivity extends Activity{
                         });
             }
         }
+
+
+        if(PermissionManager.getInstance().hasPermission(this, Manifest.permission.READ_PHONE_STATE)){
+            //已经获取权限
+        }
+        else{
+            if(PermissionManager.getInstance().shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)){
+                //已经询问过权限但是被拒绝，在这里一般显示一些为什么要需要权限，提示用户去设置里激活权限
+                ToastUtils.show(getApplication(),"需激活权限，否则某些功能无法正常使用");
+
+            }
+            else{
+                PermissionManager.getInstance().requestPermission(this,
+                        Manifest.permission.READ_PHONE_STATE,
+                        new PermissionCallBack() {
+                            @Override
+                            public void onGranted(String[] permissions, int[] grantResults) {
+                                //获得权限成功
+                            }
+
+                            @Override
+                            public void onFailed(String[] permissions, int[] grantResults) {
+                                //获得权限失败
+                                //permission数组与grantResults数组位置想对应，可以看到具体每个权限是否被获取
+                            }
+                        });
+            }
+        }
+
+        if(PermissionManager.getInstance().hasPermission(this, Manifest.permission.GET_ACCOUNTS)){
+            //已经获取权限
+        }
+        else{
+            if(PermissionManager.getInstance().shouldShowRequestPermissionRationale(this, Manifest.permission.GET_ACCOUNTS)){
+                //已经询问过权限但是被拒绝，在这里一般显示一些为什么要需要权限，提示用户去设置里激活权限
+                ToastUtils.show(getApplication(),"需激活权限，否则某些功能无法正常使用");
+
+            }
+            else{
+                PermissionManager.getInstance().requestPermission(this,
+                        Manifest.permission.GET_ACCOUNTS,
+                        new PermissionCallBack() {
+                            @Override
+                            public void onGranted(String[] permissions, int[] grantResults) {
+                                //获得权限成功
+                            }
+
+                            @Override
+                            public void onFailed(String[] permissions, int[] grantResults) {
+                                //获得权限失败
+                                //permission数组与grantResults数组位置想对应，可以看到具体每个权限是否被获取
+                            }
+                        });
+            }
+        }
     }
 
     @Override

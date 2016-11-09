@@ -116,7 +116,7 @@ public class NewsCenterPager extends BasePager {
         mBaseMenuDetailPagers = new ArrayList<BaseMenuDetailPager>();
         mBaseMenuDetailPagers.add(new NewsMenuDetailPaper(mActivity,mNewsMenu.data.get(0).children));
         mBaseMenuDetailPagers.add(new TopicMenuDetailPaper(mActivity));
-        mBaseMenuDetailPagers.add(new PhotoMenuDetailPaper(mActivity));
+        mBaseMenuDetailPagers.add(new PhotoMenuDetailPaper(mActivity,btnPhoto));
         mBaseMenuDetailPagers.add(new InteractMenuDetailPaper(mActivity));
 
         //设置默认首页
@@ -137,6 +137,11 @@ public class NewsCenterPager extends BasePager {
         pager.initData();
         //更新标题
         tvTitle.setText(mNewsMenu.data.get(position).title);
+
+        //如果是组图页面，需要显示切换按钮
+        if (pager instanceof PhotoMenuDetailPaper){
+            btnPhoto.setVisibility(View.VISIBLE);
+        }else btnPhoto.setVisibility(View.GONE);
 
     }
 
